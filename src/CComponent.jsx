@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 
 // CComponent accepts props like id, x, y, and content
-const CComponent = ({ id, x, y, content }) => {
+const CComponent = ({ id, x, y, content, onDelete }) => {
     const [isHovered, setIsHovered] = useState(false);
 
     // Inline styles for CComponent
@@ -13,36 +13,25 @@ const CComponent = ({ id, x, y, content }) => {
         backgroundColor: isHovered ? '#2980b9' : '#3498db',
         color: '#fff',
         border: '2px solid #2980b9',
-        padding: '10px',
-        borderRadius: '5px',
+        padding: '10px'
+    };
+
+    // Delete button at the top-right of the component
+    const deleteButtonStyle = {
+        position: 'absolute',
+        top: 0,
+        right: 0,
         cursor: 'pointer',
-        transition: 'background-color 0.3s, transform 0.3s',
-        transform: isHovered ? 'scale(1.05)' : 'scale(1)',
-    };
-
-    const contentStyle = {
-        textAlign: 'center',
-    };
-
-    const handleMouseEnter = () => {
-        setIsHovered(true);
-    };
-
-    const handleMouseLeave = () => {
-        setIsHovered(false);
+        background: 'red',
+        color: 'white',
+        border: 'none',
+        padding: '5px'
     };
 
     return (
-        <div
-            style={componentStyle}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-        >
-            <div style={contentStyle}>
-                {content}
-                <br />
-                ID: {id}
-            </div>
+        <div style={componentStyle} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+            <button style={deleteButtonStyle} onClick={() => onDelete(id)}>X</button>
+            {content}
         </div>
     );
 };

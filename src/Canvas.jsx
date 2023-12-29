@@ -1,4 +1,4 @@
-// src/Canvas.js
+// src/Canvas.jsx
 import React from 'react';
 
 // Canvas component that provides a scrollable area
@@ -10,15 +10,9 @@ const Canvas = ({ children }) => {
         height: '5000px',     // Height of the canvas
         position: 'relative', // Relative positioning for absolute positioning of child components
         overflow: 'scroll',   // Enable scrolling
-        border: '1px solid black' // Border for visual demarcation
     };
 
-    // Render the canvas with the provided children (components)
-    return (
-        <div style={style}>
-            {children}
-        </div>
-    );
+    return <div style={style}>{children}</div>;
 };
 
 export default Canvas;
