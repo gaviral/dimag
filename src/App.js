@@ -4,7 +4,7 @@ function App() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch('https://dimag-backend.vercel.app/data')
+    fetch('https://dimag-back.vercel.app/posts')
         .then(response => response.json())
         .then(data => setData(data));
   }, []);
