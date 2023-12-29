@@ -1,18 +1,25 @@
 // src/CComponent.jsx
-import React, { useState } from 'react';
+import React, {useState} from 'react';
+import {Button, Card, Popover} from 'antd';
 
 // CComponent accepts props like id, x, y, and content
-const CComponent = ({ id, x, y, content, onDelete }) => {
+const CComponent = ({id, x, y, content, onDelete}) => {
     const [isHovered, setIsHovered] = useState(false);
+
+    const popoverContent = (
+        <div>
+            <p>{content}</p>
+            <Button type='primary' onClick={() => onDelete(id)}>Delete</Button>
+        </div>
+    );
 
     // Inline styles for CComponent
     const componentStyle = {
         position: 'absolute',
         left: `${x}px`,
         top: `${y}px`,
-        backgroundColor: isHovered ? '#2980b9' : '#3498db',
-        color: '#fff',
-        border: '2px solid #2980b9',
+        backgroundColor: isHovered ? '#f0f0f0' : 'transparent',
+        color: '#000',
         padding: '10px'
     };
 
@@ -29,11 +36,18 @@ const CComponent = ({ id, x, y, content, onDelete }) => {
     };
 
     return (
-        <div style={componentStyle} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-            <button style={deleteButtonStyle} onClick={() => onDelete(id)}>X</button>
-            {content}
-        </div>
-    );
+        <Popover content={popoverContent} title='Component Details' trigger='hover'>
+            <Card style={componentStyle}
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}>
+                <div style={componentStyle}
+                     onMouseEnter={() => setIsHovered(true)}
+                     onMouseLeave={() => setIsHovered(false)}>
+                    <button style={deleteButtonStyle} onClick={() => onDelete(id)}>X</button>
+                    {content}
+                </div>
+            </Card>
+        </Popover>);
 };
 
 export default CComponent;

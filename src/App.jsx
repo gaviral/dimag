@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
+import {Breadcrumb, Layout, Menu} from 'antd';
 import Canvas from './Canvas';
 import CComponent from './CComponent';
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 
+const {Header, Content, Footer} = Layout;
 
 const App = () => {
     const [components, setComponents] = useState([]);
@@ -59,25 +61,47 @@ const App = () => {
     };
 
     return (
-        <div>
-            <button onClick={addComponent}>Add Component</button>
-            <Canvas>
-                {components.length > 0 ? (
-                    components.map(comp => (
-                        <CComponent onDelete={deleteComponent}
-                                    key={comp.id}
-                                    id={comp.id}
-                                    x={comp.x}
-                                    y={comp.y}
-                                    content={comp.content}
-                        />
-                    ))
-                ) : (
-                    <p>No components available. Click "Add Component" to create one.</p>
-                )}
-            </Canvas>
-        </div>
-    );
+        <Layout className='layout'>
+            <Header>
+                <div className='logo'/>
+                <Menu theme='dark' mode='horizontal' defaultSelectedKeys={['1']}>
+                    <Menu.Item key='1'>Home</Menu.Item>
+                    <Menu.Item key='2'>About</Menu.Item>
+                </Menu>
+            </Header>
+            <Content style={{padding: '0 50px'}}>
+                <Breadcrumb style={{margin: '16px 0'}}>
+                    <Breadcrumb.Item>Home</Breadcrumb.Item>
+                    <Breadcrumb.Item>List</Breadcrumb.Item>
+                    <Breadcrumb.Item>App</Breadcrumb.Item>
+                </Breadcrumb>
+                <div className='site-layout-content'>
+                    <div>
+                        <button onClick={addComponent}>Add Component</button>
+                        <Canvas>
+                            {
+                                components.length > 0 ? (
+                                    components.map(
+                                        comp => (
+                                            <CComponent onDelete={deleteComponent}
+                                                        key={comp.id}
+                                                        id={comp.id}
+                                                        x={comp.x}
+                                                        y={comp.y}
+                                                        content={comp.content}
+                                            />
+                                        )
+                                    )
+                                ) : (
+                                    <p>No components available. Click "Add Component" to create one.</p>
+                                )
+                            }
+                        </Canvas>
+                    </div>
+                </div>
+            </Content>
+            <Footer style={{textAlign: 'center'}}>Ant Design ©2018 Created by Ant UED</Footer>
+        </Layout>);
 };
 
 export default App;
